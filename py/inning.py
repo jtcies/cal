@@ -14,7 +14,7 @@ class Inning:
     """
 
     def __init__(self):
-        self.status = {"bases": [False, False, False], "outs": 0}
+        self.status = {"bases": [False, False, False], "outs": 0, "runs": 0}
 
     def play_inning(self):
         while self.status["outs"] < 3:
