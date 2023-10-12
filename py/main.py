@@ -1,10 +1,10 @@
-from inning import Inning
+from game import Game
 
 
 def main():
     print("Let's play some ball!")
-    i = Inning()
-    i.play_inning()
+    g = Game()
+    g.play_game(n_innings=3)
     print("And that's the ball game")
 
 

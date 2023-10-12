@@ -2,6 +2,14 @@ import random
 
 
 class atBat:
+    """
+    This class handles a single at bat. It takes an an argument the inning status.
+    A hit will move the runners forward on the bases, and any that cross the plate
+    (move beyond the first three elements of the bases list) are added to the
+    inning runs score. An out increments the inning outs by one.
+    Inning status is returned.
+    """
+
     def __init__(self, status):
         self.status = status
 
@@ -17,20 +25,26 @@ class atBat:
         crossed_plate = [new_bases.pop() for i in range(n_bases)]
         self.status["runs"] += sum(crossed_plate)
         self.status["bases"] = new_bases
-        return self.status
 
-    def ground_out(self):
-        print("Grounder to second!")
+    def out(self):
+        print("Grounder to second")
         self.status["outs"] += 1
-        return self.status
 
-    def takeAtBat(self):
-        roll = random.uniform(0, 1)
-        if roll >= 0.9:
-            print("It's a line drive into the gap!")
+    def take_at_bat(self):
+        roll = random.normalvariate(0, 1)
+        if roll >= 2:
+            print("Home run!!!")
+            self.basic_hit(4)
+        elif roll >= 1.8:
+            print("Triple")
+            self.basic_hit(3)
+        elif roll >= 1.0:
+            print("Double")
             self.basic_hit(2)
-        if roll >= 0.5:
+        elif roll >= 0.0:
             print("It's a bloop to shallow left")
             self.basic_hit(1)
         else:
-            self.ground_out()
+            self.out()
+
+        return self.status

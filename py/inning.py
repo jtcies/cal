@@ -9,8 +9,6 @@ class Inning:
 
     Bases is a list of booleans with length 3 (T for runner, F for no runner).
     Outs is an integer. Inning ends when outs > 2.
-
-    Eventually we will have to add game level tracking (i.e. runs)
     """
 
     def __init__(self):
@@ -19,5 +17,5 @@ class Inning:
     def play_inning(self):
         while self.status["outs"] < 3:
             a = atBat(self.status)
-            a.takeAtBat()
+            a.take_at_bat()
             print(self.status)
