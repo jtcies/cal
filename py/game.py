@@ -18,6 +18,7 @@ class Game:
             "bases": [False, False, False],
             "inning_outs": 0,
             "inning_runs": 0,
+            "last_hit": None,
         }
         self.n_innings = n_innings
 
@@ -31,8 +32,11 @@ class Game:
         new_bases = batter + self.game_status["bases"]
         # pop the crossed plate bases and sum any with runners
         crossed_plate = [new_bases.pop() for i in range(n_bases)]
-        self.game_status["inning_runs"] += sum(crossed_plate)
         self.game_status["bases"] = new_bases
+        if self.game_status["inning"] % 1 == 0:
+            self.game_status["away_runs"] += sum(crossed_plate)
+        else:
+            self.game_status["home_runs"] += sum(crossed_plate)
 
     def new_inning(self):
         self.game_status["inning"] += 0.5
@@ -41,22 +45,22 @@ class Game:
         self.game_status["bases"] = [False, False, False]
 
     def out(self):
-        print("out")
         self.game_status["inning_outs"] += 1
 
     def take_at_bat(self):
         roll = random.normalvariate(0, 1)
         if roll >= 2:
-            print("Home run!!!")
             self.basic_hit(4)
+            self.game_status["last_hit"] = "Home run!"
         elif roll >= 1.8:
-            print("Triple")
             self.basic_hit(3)
+            self.game_status["last_hit"] = "Triple"
         elif roll >= 1.0:
-            print("Double")
             self.basic_hit(2)
+            self.game_status["last_hit"] = "Double"
         elif roll >= 0.0:
-            print("Single")
             self.basic_hit(1)
+            self.game_status["last_hit"] = "Single"
         else:
             self.out()
+            self.game_status["last_hit"] = "Out"
