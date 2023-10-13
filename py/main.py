@@ -29,6 +29,10 @@ def main():
 
     while running:
         ## render game status
+        third.update_base(g.game_status["bases"][2])
+        second.update_base(g.game_status["bases"][1])
+        first.update_base(g.game_status["bases"][0])
+
         surface.fill(pygame.Color("black"), (200, 0, 400, 400))
         result = font.render(g.game_status["last_hit"], True, (0, 0, 255))
         inning_number = font.render(str(g.game_status["inning"]), True, (0, 0, 255))
@@ -40,6 +44,9 @@ def main():
         surface.blit(inning_number, (200, 90))
         surface.blit(away_runs, (200, 120))
         surface.blit(home_runs, (200, 150))
+
+        pygame.display.flip()
+
         event = pygame.event.wait()
 
         if event.type == pygame.QUIT:
@@ -57,11 +64,6 @@ def main():
                 g.take_at_bat()
             else:
                 g.new_inning()
-
-        third.update_base(g.game_status["bases"][2])
-        second.update_base(g.game_status["bases"][1])
-        first.update_base(g.game_status["bases"][0])
-        pygame.display.flip()
 
         clock.tick(60)  # limits FPS to 60
 
