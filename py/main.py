@@ -38,8 +38,8 @@ def main():
         surface.blit(result, (200, 30))
         surface.blit(outs, (200, 60))
         surface.blit(inning_number, (200, 90))
-        surface.blit(home_runs, (200, 120))
-        surface.blit(away_runs, (200, 150))
+        surface.blit(away_runs, (200, 120))
+        surface.blit(home_runs, (200, 150))
         event = pygame.event.wait()
 
         if event.type == pygame.QUIT:
